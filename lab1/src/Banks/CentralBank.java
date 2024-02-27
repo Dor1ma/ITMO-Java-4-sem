@@ -3,5 +3,11 @@ package Banks;
 import java.util.ArrayList;
 
 public class CentralBank {
-    ArrayList<Bank> banks;
+    private final ArrayList<Bank> banks = new ArrayList<>();
+
+    public void chargeInterests() {
+        for (Bank bank : banks) {
+            bank.chargeInterest();
+        }
+    }
 }

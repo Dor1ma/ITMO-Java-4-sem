@@ -11,6 +11,7 @@ public abstract class Account {
     protected int timeLimit;
     protected double commission;
     protected boolean isDubious;
+    protected double dailyPercents = 0;
 
     public Account(double amount, double percent, int timeLimit, double commission) {
         this.amount = amount;

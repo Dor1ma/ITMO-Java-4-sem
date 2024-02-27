@@ -1,6 +1,8 @@
 package Banks;
 
 import Accounts.Account;
+import Accounts.DebitAccount;
+import Accounts.DepositAccount;
 import Clients.Client;
 import Clients.ClientBuilder;
 
@@ -83,6 +85,26 @@ public class Bank {
                     series = scanner.nextInt();
                     System.out.println("Enter the number of your passport: ");
                     number = scanner.nextInt();
+                }
+            }
+        }
+    }
+
+    public void chargeInterest() {
+        for (Map.Entry<Client, ArrayList<Account>> entry : clients.entrySet()) {
+            for (Account account : entry.getValue()) {
+                if (account instanceof DebitAccount || account instanceof DepositAccount) {
+                    double percent = account.getPercent();
+                    double amount = account.getAmount();
+                    double daily = percent / 365;
+                    double result = daily * amount / 100;
+                    account.setDailyPercents(account.getDailyPercents() + result);
+                    account.setTimeLimit(account.getTimeLimit() - 1);
+
+                    if (account.getTimeLimit() % 30 == 0) {
+                        account.setAmount(account.getAmount() + account.getDailyPercents());
+                        account.setDailyPercents(0);
+                    }
                 }
             }
         }
