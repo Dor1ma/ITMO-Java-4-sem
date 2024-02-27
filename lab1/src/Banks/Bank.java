@@ -94,6 +94,10 @@ public class Bank {
         for (Map.Entry<Client, ArrayList<Account>> entry : clients.entrySet()) {
             for (Account account : entry.getValue()) {
                 if (account instanceof DebitAccount || account instanceof DepositAccount) {
+                    if (account.getTimeLimit() <= 0) {
+                        continue;
+                    }
+
                     double percent = account.getPercent();
                     double amount = account.getAmount();
                     double daily = percent / 365;
