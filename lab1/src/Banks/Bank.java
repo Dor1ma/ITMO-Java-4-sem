@@ -1,8 +1,6 @@
 package Banks;
 
-import Accounts.Account;
-import Accounts.DebitAccount;
-import Accounts.DepositAccount;
+import Accounts.*;
 import Clients.Client;
 import Clients.ClientBuilder;
 
@@ -63,7 +61,7 @@ public class Bank {
         System.out.println("A new client was successfully added to the system");
     }
 
-    public void loginClient() {
+    public Client loginClient() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("--LOGIN---");
         System.out.println("Enter your name: ");
@@ -74,20 +72,22 @@ public class Bank {
         int series;
         int number = 0;
 
-
         for (Map.Entry<Client, ArrayList<Account>> entry : clients.entrySet()) {
             Client key = entry.getKey();
             if (key.getName().equals(name) && key.getSurname().equals(surname)) {
                 if (key.getSeries() == 0 && key.getNumber() == 0) {
-                    break;
+                    return key;
                 } else {
                     System.out.println("Enter the series of your passport: ");
                     series = scanner.nextInt();
                     System.out.println("Enter the number of your passport: ");
                     number = scanner.nextInt();
+                    return key;
                 }
             }
         }
+
+        return null;
     }
 
     public void chargeInterest() {
@@ -109,6 +109,20 @@ public class Bank {
                         account.setAmount(account.getAmount() + account.getDailyPercents());
                         account.setDailyPercents(0);
                     }
+                }
+            }
+        }
+    }
+
+    public void transactionCancellation(Client client, long accountID, long transactionID) {
+        for (Account account : clients.get(client)) {
+            if (account.getCurrentID() == accountID) {
+                if (client.getTransactionHistory().Exists(transactionID)
+                    && !client.getTransactionHistory().IsCanceled(transactionID)) {
+                    Transaction transaction = client.getTransactionByID(transactionID);
+                    double sum = transaction.getSum();
+                    account.setAmount(account.getAmount() + sum);
+                    client.getTransactionHistory().updateCancellationHistory(transaction);
                 }
             }
         }
