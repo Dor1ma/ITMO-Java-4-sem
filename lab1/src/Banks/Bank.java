@@ -94,7 +94,7 @@ public class Bank {
         for (Map.Entry<Client, ArrayList<Account>> entry : clients.entrySet()) {
             for (Account account : entry.getValue()) {
                 if (account instanceof DebitAccount || account instanceof DepositAccount) {
-                    if (account.getTimeLimit() <= 0) {
+                    if (account.getTimeLimit() <= 0 && account instanceof DepositAccount) {
                         continue;
                     }
 
