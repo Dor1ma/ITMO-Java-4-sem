@@ -10,4 +10,12 @@ public class CentralBank {
             bank.chargeInterest();
         }
     }
+
+    public void registerNewBank(Bank bank) {
+        banks.add(bank);
+    }
+
+    public ArrayList<Bank> getBanks() {
+        return banks;
+    }
 }
