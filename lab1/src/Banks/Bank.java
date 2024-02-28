@@ -11,6 +11,11 @@ import java.util.Scanner;
 
 public class Bank {
     private final HashMap<Client, ArrayList<Account>> clients = new HashMap<>();
+    private double transactionLimit;
+
+    public Bank(double transactionLimit) {
+        this.transactionLimit = transactionLimit;
+    }
 
     public void addNewClient() {
         ClientBuilder clientBuilder = new ClientBuilder();
@@ -126,5 +131,29 @@ public class Bank {
                 }
             }
         }
+    }
+
+    public void changeAccountPercents(long accountID, double newPercents) {
+        for (Map.Entry<Client, ArrayList<Account>> entry : clients.entrySet()) {
+            for (Account account : entry.getValue()) {
+                if (account.getCurrentID() == accountID) {
+                    account.setPercent(newPercents);
+                    entry.getKey().showNotification("The bank has changed your account percents\n" +
+                            "New percent is: " + newPercents);
+                }
+            }
+        }
+    }
+
+    public void changeTransactionsLimit(double newTransactionLimit) {
+        this.transactionLimit = newTransactionLimit;
+        for (Map.Entry<Client, ArrayList<Account>> entry : clients.entrySet()) {
+            entry.getKey().showNotification("The bank has changed its transaction limit\n" +
+                    "New transaction limit is: " + newTransactionLimit);
+        }
+    }
+
+    public double getTransactionLimit() {
+        return transactionLimit;
     }
 }

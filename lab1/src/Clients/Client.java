@@ -36,4 +36,9 @@ public class Client {
 
         return null;
     }
+
+    public void showNotification(String message) {
+        System.out.println("---NOTIFICATION---");
+        System.out.println(message);
+    }
 }
