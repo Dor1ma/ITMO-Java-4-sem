@@ -14,17 +14,14 @@ public class Bank {
     private double transactionLimit;
     private double debitPercent;
     private double depositPercent;
-    private double creditPercent;
     private double creditAmount;
     private double creditTimeLimit;
     private int creditCommission;
 
-    public Bank(double transactionLimit, double debitPercent, double depositPercent,
-                double creditPercent, double creditAmount, double creditTimeLimit, int creditCommission) {
+    public Bank(double transactionLimit, double debitPercent, double depositPercent, double creditAmount, double creditTimeLimit, int creditCommission) {
         this.transactionLimit = transactionLimit;
         this.debitPercent = debitPercent;
         this.depositPercent = depositPercent;
-        this.creditPercent = creditPercent;
         this.creditAmount = creditAmount;
         this.creditTimeLimit = creditTimeLimit;
         this.creditCommission = creditCommission;
@@ -247,14 +244,6 @@ public class Bank {
 
     public void setDepositPercent(double depositPercent) {
         this.depositPercent = depositPercent;
-    }
-
-    public double getCreditPercent() {
-        return creditPercent;
-    }
-
-    public void setCreditPercent(double creditPercent) {
-        this.creditPercent = creditPercent;
     }
 
     public double getCreditAmount() {
