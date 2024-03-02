@@ -25,6 +25,10 @@ public abstract class Account {
         this.commission = commission;
     }
 
+    public void refill(double sum) {
+        this.amount += sum;
+    }
+
     public void withdrawal(double sum) {
         if (sum > this.amount) {
             System.out.println("Transaction denied. Insufficient funds");

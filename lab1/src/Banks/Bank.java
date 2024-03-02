@@ -12,9 +12,22 @@ import java.util.Scanner;
 public class Bank {
     private final HashMap<Client, ArrayList<Account>> clients = new HashMap<>();
     private double transactionLimit;
+    private double debitPercent;
+    private double depositPercent;
+    private double creditPercent;
+    private double creditAmount;
+    private double creditTimeLimit;
+    private int creditCommission;
 
-    public Bank(double transactionLimit) {
+    public Bank(double transactionLimit, double debitPercent, double depositPercent,
+                double creditPercent, double creditAmount, double creditTimeLimit, int creditCommission) {
         this.transactionLimit = transactionLimit;
+        this.debitPercent = debitPercent;
+        this.depositPercent = depositPercent;
+        this.creditPercent = creditPercent;
+        this.creditAmount = creditAmount;
+        this.creditTimeLimit = creditTimeLimit;
+        this.creditCommission = creditCommission;
     }
 
     public void addNewClient() {
@@ -119,6 +132,69 @@ public class Bank {
         }
     }
 
+    public void createNewAccount(Client client) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Select the option");
+            System.out.println("1. Create debit account");
+            System.out.println("2. Create deposit account");
+            System.out.println("3. Create credit account");
+            System.out.println("4. Cancel");
+            
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1 -> {
+                    clients.get(client).add(new DebitAccount(debitPercent));
+                    return;
+                }
+                case 2 -> {
+                    clients.get(client).add(new DepositAccount(0, depositPercent, 0));
+                    return;
+                }
+                case 3 -> {
+                    clients.get(client).add(new CreditAccount(creditAmount, creditCommission, creditTimeLimit));
+                    return;
+                }
+                case 4 -> {
+                    return;
+                }
+                default -> System.out.println("Wrong option");
+            }
+        }
+    }
+
+    public void refillAnAccount(Client client) {
+        System.out.println("Select the desired account");
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < clients.get(client).size(); i++) {
+            System.out.println(i + 1 + clients.get(client).get(i).getCurrentID());
+        }
+
+        int accountIndex = scanner.nextInt();
+
+        System.out.println("Enter the amount of replenishment:");
+        double sum = scanner.nextDouble();
+        clients.get(client).get(accountIndex).refill(sum);
+    }
+
+    public void withdrawAnAccount(Client client) {
+        System.out.println("Select the desired account");
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < clients.get(client).size(); i++) {
+            System.out.println(i + 1 + clients.get(client).get(i).getCurrentID());
+        }
+
+        int accountIndex = scanner.nextInt();
+
+        System.out.println("Enter the amount to be withdrawn");
+        double sum = scanner.nextDouble();
+        clients.get(client).get(accountIndex).withdrawal(sum);
+    }
+
     public void transactionCancellation(Client client, long accountID, long transactionID) {
         for (Account account : clients.get(client)) {
             if (account.getCurrentID() == accountID) {
@@ -155,5 +231,53 @@ public class Bank {
 
     public double getTransactionLimit() {
         return transactionLimit;
+    }
+
+    public double getDebitPercent() {
+        return debitPercent;
+    }
+
+    public void setDebitPercent(double debitPercent) {
+        this.debitPercent = debitPercent;
+    }
+
+    public double getDepositPercent() {
+        return depositPercent;
+    }
+
+    public void setDepositPercent(double depositPercent) {
+        this.depositPercent = depositPercent;
+    }
+
+    public double getCreditPercent() {
+        return creditPercent;
+    }
+
+    public void setCreditPercent(double creditPercent) {
+        this.creditPercent = creditPercent;
+    }
+
+    public double getCreditAmount() {
+        return creditAmount;
+    }
+
+    public void setCreditAmount(double creditAmount) {
+        this.creditAmount = creditAmount;
+    }
+
+    public double getCreditTimeLimit() {
+        return creditTimeLimit;
+    }
+
+    public void setCreditTimeLimit(double creditTimeLimit) {
+        this.creditTimeLimit = creditTimeLimit;
+    }
+
+    public int getCreditCommission() {
+        return creditCommission;
+    }
+
+    public void setCreditCommission(int creditCommission) {
+        this.creditCommission = creditCommission;
     }
 }
