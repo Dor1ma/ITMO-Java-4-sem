@@ -170,7 +170,7 @@ public class Bank {
             System.out.println(i + 1 + clients.get(client).get(i).getCurrentID());
         }
 
-        int accountIndex = scanner.nextInt();
+        int accountIndex = scanner.nextInt() - 1;
 
         System.out.println("Enter the amount of replenishment:");
         double sum = scanner.nextDouble();
@@ -185,7 +185,7 @@ public class Bank {
             System.out.println(i + 1 + clients.get(client).get(i).getCurrentID());
         }
 
-        int accountIndex = scanner.nextInt();
+        int accountIndex = scanner.nextInt() - 1;
 
         System.out.println("Enter the amount to be withdrawn");
         double sum = scanner.nextDouble();
