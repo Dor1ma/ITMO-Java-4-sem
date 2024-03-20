@@ -17,6 +17,22 @@
             <scope>system</scope>
             <systemPath>C:/Users/Павел/Downloads/Telegram Desktop/hibernate-core-6.4.4.Final.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
 </project>
