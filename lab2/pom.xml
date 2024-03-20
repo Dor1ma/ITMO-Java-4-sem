@@ -14,8 +14,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.4.4.Final</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/Павел/Downloads/Telegram Desktop/hibernate-core-6.4.4.Final.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -34,5 +32,6 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
 
 </project>
