@@ -12,7 +12,7 @@
     <bytecodeTargetLevel>
       <module name="controller" target="1.5" />
       <module name="lab1" target="19" />
-      <module name="lab2" target="1.5" />
+      <module name="lab2" target="19" />
       <module name="service" target="1.5" />
     </bytecodeTargetLevel>
   </component>
