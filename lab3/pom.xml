@@ -18,14 +18,9 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>lab2</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

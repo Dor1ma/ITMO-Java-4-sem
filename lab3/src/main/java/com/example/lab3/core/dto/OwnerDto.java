@@ -1,4 +1,4 @@
-package dto;
+package com.example.lab3.core.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
-public class CatDto {
+public class OwnerDto {
     @Getter
     @Setter
     private Long id;
@@ -18,14 +18,5 @@ public class CatDto {
     private Date dateOfBirth;
     @Getter
     @Setter
-    private String breed;
-    @Getter
-    @Setter
-    private String color;
-    @Getter
-    @Setter
-    private Long ownerId;
-    @Getter
-    @Setter
-    private List<Long> listOfFriendsIds;
+    private List<Long> catsIds;
 }

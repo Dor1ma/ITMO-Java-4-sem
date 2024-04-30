@@ -1,6 +1,6 @@
-package repository;
+package com.example.lab3.core.repository;
 
-import org.core.models.Cat;
+import com.example.lab3.core.models.Cat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

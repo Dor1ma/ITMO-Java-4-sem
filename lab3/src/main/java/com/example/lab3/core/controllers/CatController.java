@@ -1,7 +1,7 @@
-package controllers;
+package com.example.lab3.core.controllers;
 
-import dto.CatDto;
-import services.CatService;
+import com.example.lab3.core.dto.CatDto;
+import com.example.lab3.core.services.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,6 @@ public class CatController {
 
     private final CatService catService;
 
-    @Autowired
     public CatController(CatService catService) {
         this.catService = catService;
     }

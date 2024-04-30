@@ -1,12 +1,12 @@
-package services;
+package com.example.lab3.core.services;
 
-import dto.CatDto;
-import org.core.models.Cat;
-import org.core.models.Owner;
+import com.example.lab3.core.models.Cat;
+import com.example.lab3.core.models.Owner;
+import com.example.lab3.core.repository.OwnerRepository;
+import com.example.lab3.core.dto.CatDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.CatRepository;
-import repository.OwnerRepository;
+import com.example.lab3.core.repository.CatRepository;
 
 import java.util.Date;
 import java.util.List;

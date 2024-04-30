@@ -1,8 +1,8 @@
-package controllers;
+package com.example.lab3.core.controllers;
 
-import dto.OwnerDto;
+import com.example.lab3.core.dto.OwnerDto;
+import com.example.lab3.core.services.OwnerService;
 import org.springframework.http.HttpStatus;
-import services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,6 @@ public class OwnerController {
 
     private final OwnerService ownerService;
 
-    @Autowired
     public OwnerController(OwnerService ownerService) {
         this.ownerService = ownerService;
     }
