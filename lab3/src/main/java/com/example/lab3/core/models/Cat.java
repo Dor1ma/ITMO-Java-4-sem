@@ -1,13 +1,13 @@
-package org.core.models;
-
-import java.util.Date;
-import java.util.List;
+package com.example.lab3.core.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cats")
