@@ -1,26 +1,38 @@
 package com.example.lab3.core.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "roles")
+@Getter
+@Setter
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
-    private Long id;
+    private int id;
+    private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    @Getter
-    @Setter
-    private ERole name;
+    public int getId() {
+        return id;
+    }
 
-    public enum ERole {
-        ROLE_USER,
-        ROLE_ADMIN
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 }

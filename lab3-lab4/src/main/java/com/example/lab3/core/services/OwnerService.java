@@ -68,6 +68,9 @@ public class OwnerService {
         Date dateOfBirth = ownerDto.getDateOfBirth();
         List<Long> catsIds = ownerDto.getCatsIds();
         List<Cat> cats = null;
+        String username = ownerDto.getUsername();
+        String password = ownerDto.getPassword();
+        String role = ownerDto.getRole();
 
         if (catsIds != null) {
             cats = catsIds.stream()
@@ -78,7 +81,10 @@ public class OwnerService {
         return new Owner(
                 name,
                 dateOfBirth,
-                cats
+                cats,
+                username,
+                password,
+                role
         );
     }
 

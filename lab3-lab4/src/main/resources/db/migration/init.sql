@@ -1,7 +1,10 @@
 CREATE TABLE IF NOT EXISTS owners (
                         id SERIAL PRIMARY KEY,
                         name VARCHAR(255),
-                        date_of_birth DATE
+                        date_of_birth DATE,
+                        username VARCHAR(255),
+                        password VARCHAR(255),
+                        role VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS cats (
@@ -19,13 +22,3 @@ CREATE TABLE IF NOT EXISTS cat_friends (
                              PRIMARY KEY (cat_id, friend_id)
 );
 
-CREATE TABLE IF NOT EXISTS roles (
-                       id SERIAL PRIMARY KEY,
-                       name VARCHAR(20)
-);
-
-CREATE TABLE IF NOT EXISTS users (
-                       id SERIAL PRIMARY KEY,
-                       owner_id INTEGER REFERENCES owners(id),
-                       role_id INTEGER REFERENCES roles(id)
-);
