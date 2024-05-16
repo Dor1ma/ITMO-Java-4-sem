@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS owners (
                         id SERIAL PRIMARY KEY,
-                        name VARCHAR(255),
-                        date_of_birth DATE,
                         username VARCHAR(255),
                         password VARCHAR(255),
-                        role VARCHAR(255)
+                        role VARCHAR(255),
+                        date_of_birth DATE
+
 );
 
 CREATE TABLE IF NOT EXISTS cats (

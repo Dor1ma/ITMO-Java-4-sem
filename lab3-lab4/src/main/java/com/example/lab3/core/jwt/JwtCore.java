@@ -19,11 +19,16 @@ public class JwtCore {
         UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
         return Jwts.builder().setSubject((userDetails.getUsername())).setIssuedAt(new Date())
                 .setExpiration(new Date((new Date().getTime() + lifetime)))
-                .signWith(SignatureAlgorithm.ES256, secret)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
     public String getNameFromJwt(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }

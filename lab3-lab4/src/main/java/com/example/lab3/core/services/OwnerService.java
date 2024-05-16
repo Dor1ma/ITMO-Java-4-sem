@@ -54,7 +54,6 @@ public class OwnerService {
     private OwnerDto convertToDto(Owner owner) {
         OwnerDto ownerDto = new OwnerDto();
         ownerDto.setId(owner.getId());
-        ownerDto.setName(owner.getName());
         ownerDto.setDateOfBirth(owner.getDateOfBirth());
         if (owner.getCats() != null) {
             ownerDto.setCatsIds(owner.getCats().stream().map(Cat::getId).collect(Collectors.toList()));
@@ -64,7 +63,6 @@ public class OwnerService {
 
     private Owner convertToEntity(OwnerDto ownerDto) {
         long id = ownerDto.getId();
-        String name = ownerDto.getName();
         Date dateOfBirth = ownerDto.getDateOfBirth();
         List<Long> catsIds = ownerDto.getCatsIds();
         List<Cat> cats = null;
@@ -79,7 +77,6 @@ public class OwnerService {
         }
 
         return new Owner(
-                name,
                 dateOfBirth,
                 cats,
                 username,

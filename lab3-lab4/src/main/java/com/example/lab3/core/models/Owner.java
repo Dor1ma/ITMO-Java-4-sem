@@ -18,16 +18,6 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
-
-    @OneToMany(mappedBy = "owner")
-    private List<Cat> cats;
-
     @Column(name = "username")
     private String username;
     @Column(name = "password")
@@ -35,9 +25,14 @@ public class Owner {
     @Column(name = "role")
     private String role;
 
-    public Owner(String name, Date dateOfBirth, List<Cat> cats,
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Cat> cats;
+
+    public Owner(Date dateOfBirth, List<Cat> cats,
                  String username, String password, String role) {
-        this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.cats = cats;
         this.username = username;

@@ -2,10 +2,11 @@ package com.example.lab3.security;
 
 import com.example.lab3.core.jwt.TokenFilter;
 import com.example.lab3.core.services.UserService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,10 +24,10 @@ import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
+@NoArgsConstructor
 public class SecurityConfig {
     private UserService userService;
     private TokenFilter tokenFilter;
-    public SecurityConfig() {}
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -37,42 +38,6 @@ public class SecurityConfig {
     public void setTokenFilter(TokenFilter tokenFilter) {
         this.tokenFilter = tokenFilter;
     }
-
-    @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        /*http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(httpSecurityCorsConfigurer ->
-                        httpSecurityCorsConfigurer.configurationSource(request ->
-                                new CorsConfiguration().applyPermitDefaultValues()))
-                .exceptionHandling(exceptions -> exceptions
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/cats/**").hasAnyRole("OWNER", "ADMIN")
-                        .requestMatchers("/owners/**").hasRole("ADMIN"))
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                );*/
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(httpSecurityCorsConfigurer ->
-                        httpSecurityCorsConfigurer.configurationSource(request ->
-                                new CorsConfiguration().applyPermitDefaultValues()))
-                .exceptionHandling(exceptions -> exceptions
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/secured/user").fullyAuthenticated()
-                        .anyRequest().permitAll()
-                )
-                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -81,5 +46,38 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    @Primary
+    public AuthenticationManagerBuilder configureAuthenticationManagerBuilder(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception
+    {
+        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
+
+        return authenticationManagerBuilder;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
+    {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .cors(httpSecurityCorsConfigurer ->
+                        httpSecurityCorsConfigurer.configurationSource(request ->
+                                new CorsConfiguration().applyPermitDefaultValues())
+                )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/owners").hasRole("ADMIN")
+                        .requestMatchers("/owners/**").fullyAuthenticated()
+                        .anyRequest().permitAll()
+                )
+                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 }

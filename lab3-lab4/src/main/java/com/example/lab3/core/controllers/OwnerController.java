@@ -3,13 +3,14 @@ package com.example.lab3.core.controllers;
 import com.example.lab3.core.dto.OwnerDto;
 import com.example.lab3.core.services.OwnerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/owners")
 public class OwnerController {
 

@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecurityController {
     private OwnerRepository ownerRepository;
     private PasswordEncoder passwordEncoder;
-    @Autowired
     private AuthenticationManager authenticationManager;
     private JwtCore jwtCore;
 
@@ -39,15 +38,25 @@ public class SecurityController {
     }
 
     @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager)
+    {
+        this.authenticationManager = authenticationManager;
+    }
+
+    @Autowired
     public void setJwtCore(JwtCore jwtCore) {
         this.jwtCore = jwtCore;
     }
 
     @PostMapping("/signup")
     ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
+        if (ownerRepository.existsOwnerByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists");
+        }
+
         Owner owner = new Owner();
         owner.setUsername(signUpRequest.getUsername());
-        owner.setPassword(signUpRequest.getPassword());
+        owner.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         owner.setRole(signUpRequest.getRole());
         ownerRepository.save(owner);
         return ResponseEntity.ok("User registered successfully: " + owner.getUsername());
@@ -55,7 +64,7 @@ public class SecurityController {
 
     @PostMapping("/signin")
     ResponseEntity<?> signin(@RequestBody SignInRequest signInRequest) {
-        Authentication authentication;
+        Authentication authentication = null;
         try {
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     signInRequest.getUsername(),
